@@ -5,7 +5,7 @@ Scripts and documentation related to the analysis of urban green area use based 
 
 1. Fetching green areas from OpenStreetMap
 2. Point data pre-processing
-3. Hotspot comparison
+3. [Hotspot comparison](calculate_jaccard.py)
 4. Plotting temporal trends
 5. Venn-diagrams
 6. Treemap
