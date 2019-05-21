@@ -23,15 +23,23 @@ Vuokko H. 21 May 2019
 import geopandas as gpd
 import pandas as pd
 import numpy as np
-from sklearn.metrics import jaccard_score
 
 #-----------------------------
 # Read input data
 #------------------------------
 
+#set output
+out_fp = r"jaccard_results_inside_vistra.csv"
+
 # input data
+"""
 fp = r"D:/ViherSOME/Data/YKR_grid/YKR_250m_mobilebigdata.shp"
 data = gpd.read_file(fp)
+"""
+
+
+fp = "C:\LocalData\VUOKKHEI\codes\ViherSoMe\YKR_GreenCentroid_SpatialBigData.pkl"
+data = pd.read_pickle(fp)
 
 #check input data
 data.head()
@@ -41,7 +49,11 @@ data.columns.values
 data.replace(to_replace=0, value=np.nan, inplace=True)
 
 #select only needed columns (NOW THESTING WITH A LIMITED SET..)
-data_values = data[['insta_user','insta_gree','flickr_use','ZROP H17']]
+data_values = data[['insta_userdays', 'insta_users',
+       'flickr_userdays', 'flickr_users', 'instaf_userdays',
+       'instaf_users', 'PPGISpark_user', 'PPGIS2050_user', 'ZROP H0',
+       'ZROP H13', 'ZROP H14', 'ZROP H15', 'ZROP H16', 'ZROP H17',
+       'ZROP H18', 'ZROP H20', 'ZROP H22']]
 
 #------------------------------
 # Get top 10 % of each column
@@ -58,13 +70,12 @@ data_q = data_values.apply(lambda x: pd.qcut(x,
                                              labels = range(0, len(pd.qcut(x,q=10, duplicates="drop").value_counts()))),
                                              axis = 0)
 
-
 # Get all grid squares which belong to top quintile of each column
 top10 = data_q.apply(lambda x: x[x==x.max()], axis = 0)
 
 # Join with original grid IDs and re-set index
-top10 = pd.merge(pd.DataFrame(data["ID"]), top10, left_index=True, right_index = True, how = 'left')
-top10.set_index("ID", drop=True, inplace =True)
+top10 = pd.merge(pd.DataFrame(data["YKR_ID"]), top10, left_index=True, right_index = True, how = 'left')
+top10.set_index("YKR_ID", drop=True, inplace =True)
 
 #conver to binary 1 0
 top10 = top10.notnull().astype('int')
@@ -94,9 +105,8 @@ for name1 in data_names:
 
         jaccard_results.at[name1, name2] = jaccard
 
-
-jaccard_results.to_csv(r"jaccard_results.csv")
-
+jaccard_results.to_csv(out_fp)
+print("Saved output", out_fp)
 
 """
 # Creating quintiles one-by one: 
