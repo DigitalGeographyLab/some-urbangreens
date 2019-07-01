@@ -27,3 +27,4 @@ https://hri.fi/data/fi/dataset/helsingin-kaupungin-yleisten-alueiden-rekisteri
 ```
 https://kartta.hel.fi/ws/geoserver/avoindata/wfs?request=GetFeature&service=WFS&version=1.1.0&typeName=avoindata:YLRE_Viheralue_alue&outputFormat=kml
 ```
+note: the database is updated every day, we acquired the latest version on July 1 2019.
