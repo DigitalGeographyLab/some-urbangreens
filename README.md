@@ -3,7 +3,7 @@
 ### Understanding the use of urban green spaces from user-generated geographic information
 Scripts and documentation related to the analysis of urban green area use based on user-generated geographic information.
 
-1. Fetching green areas from OpenStreetMap
+1. [Green areas](vihersome-green-areas.md)
 2. Point data pre-processing
 3. [Hotspot comparison](calculate_jaccard.py)
 4. Plotting temporal trends
