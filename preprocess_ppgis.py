@@ -2,9 +2,10 @@
 This script
 
 1. reads in the original PPGIS point markers
-2. selects records related to green areas
+2. filters data based on bbox and attributes
 3. selects data inside Helsinki
-4. stores layers in a geopackage
+4. selects data inside public green space
+5. stores layers in a geopackage
 
 
 # Input layers:
@@ -12,7 +13,7 @@ This script
     PPGIS 2050 layer was converted to shp in QGIS prior to running this script
 
 # Output
-    outputs new layers to geopackage
+    outputs new layers to a geopackage
 
 """
 
