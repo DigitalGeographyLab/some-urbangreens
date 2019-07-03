@@ -15,7 +15,7 @@ http://www.kvartti.fi/en/articles/helsinki-compact-green-city
 Jaakkola, M., Böhling, A., Nicklén, M., & Lämsä, A. (2016). Helsingin viher- ja virkistysverkoston kehittämissuunnitelma VISTRA osa II. 
 Helsingin Kaupunkisuunnitteluviraston Asemakaavaosaston Selvityksiä, 2016(2).
 
-## Other green areas
+### Other green areas
 
 We acquired the extent of public green areas in Helsinki from the register of public areas in the city of Helsinki.
 
@@ -28,3 +28,8 @@ https://hri.fi/data/fi/dataset/helsingin-kaupungin-yleisten-alueiden-rekisteri
 https://kartta.hel.fi/ws/geoserver/avoindata/wfs?request=GetFeature&service=WFS&version=1.1.0&typeName=avoindata:YLRE_Viheralue_alue&outputFormat=kml
 ```
 note: the database is updated every day, we acquired the latest version on July 1 2019.
+
+
+### Open STreet Map
+
+We also explored the possibility of using Open Street Map as input for the green area extent. 
