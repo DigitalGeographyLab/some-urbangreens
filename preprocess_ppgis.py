@@ -7,13 +7,17 @@ This script
 4. selects data inside public green space
 5. stores layers in a geopackage
 
-
 # Input layers:
-    Contents of the datadir -folder are original data downloaded from HRI.
-    PPGIS 2050 layer was converted to shp in QGIS prior to running this script
+    Contents of the datadir -folder are original point data downloaded from HRI:
+    - PPGIS 2050: Helsinki 2050 survey results: https://hri.fi/data/en_GB/dataset/helsinki-2050-kyselyn-vastaukset
+    - PPGIS park: Questionnaire about Helsinki's national city park: https://hri.fi/data/en_GB/dataset/helsingin-kansallinen-kaupunkipuisto-kyselyn-vastaukset
+
+    PPGIS 2050 layer was converted to shp in QGIS prior to running this script.
 
 # Output
-    outputs new layers to a geopackage
+    outputs new layers to a geopackage for each input layer:
+    - all points in Helsinki
+    - all points in Helsinki green areas
 
 """
 
@@ -97,8 +101,8 @@ for name, filepath in filenames.items():
     greenareapoints = greenareapoints.to_crs(file.crs)
 
     # Save layers to geopackage:
-    helsinkipoints.to_file(os.path.join(outfp, "urbangreens_ok.gpkg"), layer = name + "_helsinki", driver = "GPKG")
-    greenareapoints.to_file(os.path.join(outfp, "urbangreens_ok.gpkg"), layer = name + "_greens", driver="GPKG")
+    helsinkipoints.to_file(os.path.join(outfp, "urbangreens.gpkg"), layer = name + "_helsinki", driver = "GPKG")
+    greenareapoints.to_file(os.path.join(outfp, "urbangreens.gpkg"), layer = name + "_greens", driver="GPKG")
 
 
 
