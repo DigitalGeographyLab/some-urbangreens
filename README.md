@@ -3,14 +3,18 @@
 ### Understanding the use of urban green spaces from user-generated geographic information
 Scripts and documentation related to the analysis of urban green area use.
 
-1. [Green space polygons](vihersome-green-areas.md)
-2. Point data pre-processing
+1. [**Green space polygons**](vihersome-green-areas.md)
+2. **Point data pre-processing**
     * [PPGIS data](preprocess_ppgis.py)
     * [Social media data](preprocess_socialmedia.py)
-3. [Hotspot comparison](calculate_jaccard.py)
-4. Plotting temporal trends
-5. Venn-diagrams
-6. Treemap
+3. **Hotspot comparison**
+    * [join points to grid](data_to_grid.py)
+    * [calculate jaccard index](calculate_jaccard.py)
+4. **Plotting temporal trends**
+5. **Content analysis of social media data**
+    * **Venn-diagrams**
+    * **Treemap**
+6. **languages**
 
 
 #### Input data about green area use / values
