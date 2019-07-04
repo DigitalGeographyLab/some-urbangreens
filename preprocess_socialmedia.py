@@ -34,16 +34,18 @@ def spatial_subset(points, polygon):
 
     return point_subset
 
-# Green area
+# Green area polygons
 url = "https://kartta.hel.fi/ws/geoserver/avoindata/wfs?request=GetFeature&service=WFS&version=1.1.0&typeName=avoindata:YLRE_Viheralue_alue&outputFormat=JSON"
 greenarea = gpd.read_file(url)
 greenarea = greenarea[greenarea['geometry'].notnull()] # the layer has one empty geometry
-greenarea.crs = {'init' :'epsg:3879'}
+greenarea.crs = {'init' :'epsg:3879'} # the wfs returns a false crs!
 
 # Social media points
 datadir = r"P:\h510\some\data\finland\vihersome_temp"
 
-layers = ["insta_helsinki_2015","flick_helsinki_2015","twitt_helsinki_2017"]
+layers = ["insta_helsinki_2015",
+          "flick_helsinki_2015",
+          "twitt_helsinki_2017"]
 
 for layer in layers:
     # Read in layer from geopackage
@@ -63,11 +65,11 @@ for layer in layers:
     # Posts in Helsinki green areas
     greenareapoints = spatial_subset(df, greenarea)
 
+    # PRINT INFO
     print("\t", len(greenareapoints), "in greens", "{0:.0%}".format(len(greenareapoints) / len(df)))
     print("\t", greenareapoints.userid.nunique(), "users in greens", "{0:.0%}".format(greenareapoints.userid.nunique() / df.userid.nunique()))
 
     # Save output layer to geopackage
     print("saving green area posts from ", layer)
     greenareapoints.to_file(os.path.join(datadir, "urbangreens.gpkg"), layer = layer + "_greens", driver="GPKG")
-
 

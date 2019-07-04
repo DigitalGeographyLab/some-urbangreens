@@ -42,13 +42,13 @@ outfp = r"P:\h510\some\data\finland\vihersome_temp"
 url = "https://kartta.hel.fi/ws/geoserver/avoindata/wfs?request=GetFeature&service=WFS&version=1.1.0&typeName=avoindata:Seutukartta_aluejako_kuntarajat&outputFormat=JSON"
 area = gpd.read_file(url)
 area = area[area["nimi"] == "Helsinki"]
-area.crs = {'init' :'epsg:3879'}
+area.crs = {'init' :'epsg:3879'} # the wfs returns a false crs!
 
 # Green area
 url = "https://kartta.hel.fi/ws/geoserver/avoindata/wfs?request=GetFeature&service=WFS&version=1.1.0&typeName=avoindata:YLRE_Viheralue_alue&outputFormat=JSON"
 greenarea = gpd.read_file(url)
 greenarea = greenarea[greenarea['geometry'].notnull()] # the layer has one empty geometry
-greenarea.crs =  {'init' :'epsg:3879'}
+greenarea.crs =  {'init' :'epsg:3879'} # the wfs returns a false crs!
 
 # PPGIS input layers
 filenames = {"PPGISpark": r"kansallinen_kaupunkipuisto-kysely_updated\avoin_data_final_id\kansallinen_kaupunkipuisto_point.shp",
