@@ -23,6 +23,7 @@ Vuokko H. 21 May 2019
 import geopandas as gpd
 import pandas as pd
 import numpy as np
+import os
 
 #-----------------------------
 # Read input data
@@ -32,28 +33,26 @@ import numpy as np
 out_fp = r"jaccard_results_inside_vistra.csv"
 
 # input data
-"""
-fp = r"D:/ViherSOME/Data/YKR_grid/YKR_250m_mobilebigdata.shp"
-data = gpd.read_file(fp)
-"""
-
-
-fp = "C:\LocalData\VUOKKHEI\codes\ViherSoMe\YKR_GreenCentroid_SpatialBigData.pkl"
-data = pd.read_pickle(fp)
+datadir = r"P:\h510\some\data\finland\vihersome_temp"
+data = gpd.read_file(os.path.join(datadir, r'urbangreens_grid.gpkg'), layer="greengrid")
 
 #check input data
-data.head()
-data.columns.values
+print(data.head())
+print(data.columns.values)
 
 # Replace zero with nan to exclude from classification
 data.replace(to_replace=0, value=np.nan, inplace=True)
 
 #select only needed columns (NOW THESTING WITH A LIMITED SET..)
-data_values = data[['insta_userdays', 'insta_users',
-       'flickr_userdays', 'flickr_users', 'instaf_userdays',
-       'instaf_users', 'PPGISpark_user', 'PPGIS2050_user', 'ZROP H0',
+data_values = data[['PPGIS2050_users', 'PPGISpark_users', 'insta_hel_users',
+       'insta_hel_userdays', 'flick_hel_users', 'flick_hel_userdays',
+       'twitt_hel_users', 'twitt_hel_userdays', 'ZROP H0',
        'ZROP H13', 'ZROP H14', 'ZROP H15', 'ZROP H16', 'ZROP H17',
        'ZROP H18', 'ZROP H20', 'ZROP H22']]
+
+#data_values = data[['PPGIS2050_users', 'PPGISpark_users', 'insta_hel_users',
+#        'flick_hel_users', 'twitt_hel_users', 'ZROP H16']]
+
 
 #------------------------------
 # Get top 10 % of each column
