@@ -49,7 +49,7 @@ if __name__ == "__main__":
     # YKR grid polygons:
     grid_fp = r"D:\ViherSOME\Data\YKR_grid\YKR_250m_Helsinki.shp"
     grid = gpd.read_file(grid_fp)
-    polygon_id = "GRIDCODE"
+    polygon_id = "ID"
 
     datadir = r"P:\h510\some\data\finland\vihersome_temp"
 
