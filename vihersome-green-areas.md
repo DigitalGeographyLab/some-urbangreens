@@ -30,6 +30,6 @@ https://kartta.hel.fi/ws/geoserver/avoindata/wfs?request=GetFeature&service=WFS&
 note: the database is updated every day, we acquired the latest version on July 1 2019.
 
 
-### Open STreet Map
+### Open Street Map
 
 We also explored the possibility of using Open Street Map as input for the green area extent. 
