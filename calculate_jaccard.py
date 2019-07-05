@@ -29,12 +29,21 @@ import os
 # Read input data
 #------------------------------
 
-#set output
-out_fp = r"jaccard_results_inside_vistra.csv"
+# how many quantiles
+quantiles = 5
+layer = "greengrid"
 
 # input data
 datadir = r"P:\h510\some\data\finland\vihersome_temp"
-data = gpd.read_file(os.path.join(datadir, r'urbangreens_grid.gpkg'), layer="greengrid")
+data = gpd.read_file(os.path.join(datadir, r'urbangreens_grid.gpkg'), layer=layer)
+
+# result file
+out_fp = r"jaccard_%s_q%s.csv" % (layer, str(quantiles))
+
+# metadata file
+meta_fp = r"jaccard_%s_q%s_categories.txt" % (layer, str(quantiles))
+file1 = open(meta_fp,"w")
+file1.close()
 
 #check input data
 print(data.head())
@@ -43,15 +52,17 @@ print(data.columns.values)
 # Replace zero with nan to exclude from classification
 data.replace(to_replace=0, value=np.nan, inplace=True)
 
-#select only needed columns (NOW THESTING WITH A LIMITED SET..)
+#select columns for comparison:
+"""
 data_values = data[['PPGIS2050_users', 'PPGISpark_users', 'insta_hel_users',
        'insta_hel_userdays', 'flick_hel_users', 'flick_hel_userdays',
        'twitt_hel_users', 'twitt_hel_userdays', 'ZROP H0',
        'ZROP H13', 'ZROP H14', 'ZROP H15', 'ZROP H16', 'ZROP H17',
        'ZROP H18', 'ZROP H20', 'ZROP H22']]
+"""
 
-#data_values = data[['PPGIS2050_users', 'PPGISpark_users', 'insta_hel_users',
-#        'flick_hel_users', 'twitt_hel_users', 'ZROP H16']]
+data_values = data[['PPGIS2050_users', 'PPGISpark_users', 'insta_hel_users',
+        'flick_hel_users', 'twitt_hel_users', 'ZROP H16']]
 
 
 #------------------------------
@@ -64,27 +75,39 @@ data_values = data[['PPGIS2050_users', 'PPGISpark_users', 'insta_hel_users',
 
 # Discretize column values (axis = 0) into 10 equal-sized buckets; output as flexible-length labels
 data_q = data_values.apply(lambda x: pd.qcut(x,
-                                             q=10,
+                                             q=quantiles,
                                              duplicates="drop",
-                                             labels = range(0, len(pd.qcut(x,q=10, duplicates="drop").value_counts()))),
+                                             labels = range(0, len(pd.qcut(x,q=quantiles, duplicates="drop").value_counts()))), # as many labels as there are categories
                                              axis = 0)
 
+# Store info about the quantile categories into a separate text file
+for column in data_values.columns.values:
+    file1 = open(meta_fp, "a")
+
+    lines = ["#####################\n",
+             "Categories for column " + column + "\n",
+             str(pd.qcut(data_values[column],q=quantiles, duplicates="drop").values) + "\n",
+             str(pd.qcut(data_values[column], q=quantiles, duplicates="drop").value_counts()),
+            "\n\n",]
+    file1.writelines(lines)
+    file1.close()
+
 # Get all grid squares which belong to top quintile of each column
-top10 = data_q.apply(lambda x: x[x==x.max()], axis = 0)
+top = data_q.apply(lambda x: x[x == x.max()], axis = 0)
 
 # Join with original grid IDs and re-set index
-top10 = pd.merge(pd.DataFrame(data["YKR_ID"]), top10, left_index=True, right_index = True, how = 'left')
-top10.set_index("YKR_ID", drop=True, inplace =True)
+top = pd.merge(pd.DataFrame(data["YKR_ID"]), top, left_index=True, right_index = True, how ='left')
+top.set_index("YKR_ID", drop=True, inplace =True)
 
 #conver to binary 1 0
-top10 = top10.notnull().astype('int')
+top = top.notnull().astype('int')
 
 #------------------------------
 # CALCULATE JACCARD
 #-------------------------------
 
 # list column values (NOTE! these should only contain columns with actual data, not eg. id values..)
-data_names = list(top10.columns.values)
+data_names = list(top.columns.values)
 
 #Create output matrix for the results
 jaccard_results = pd.DataFrame(index=data_names, columns = data_names)
@@ -93,8 +116,8 @@ jaccard_results = pd.DataFrame(index=data_names, columns = data_names)
 for name1 in data_names:
     for name2 in data_names:
 
-        intersection = len(top10[(top10[name1]==1) & (top10[name2]==1)])
-        union =  intersection + len(top10[(top10[name1]==0) & (top10[name2]==1)]) + len(top10[(top10[name1]==1) & (top10[name2]==0)])
+        intersection = len(top[(top[name1] == 1) & (top[name2] == 1)])
+        union = intersection + len(top[(top[name1] == 0) & (top[name2] == 1)]) + len(top[(top[name1] == 1) & (top[name2] == 0)])
         jaccard = intersection / union
 
         print("Pairwise comparison of", name1, name2)
