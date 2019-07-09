@@ -9,7 +9,7 @@ Scripts and documentation related to the analysis of urban green area use.
     * [Social media data](preprocess_socialmedia.py)
 3. **Hotspot comparison**
     * [join points to grid](data_to_grid.py)
-    * [calculate jaccard index](calculate_jaccard.py)
+    * [calculate jaccard index](calculate_jaccard_quantiles.py)
 4. **Plotting temporal trends**
 5. **Content analysis of social media data**
     * **Venn-diagrams**
