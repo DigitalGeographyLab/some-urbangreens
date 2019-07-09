@@ -1,10 +1,14 @@
 
 """
-Join user-generated data sets to grid (count of users, count of userdays for social media data)
+Join user-generated data sets to green finger polygons (count of users, count of userdays for social media data)
 
 # INPUT
-    - GRID
+    - YKR GRID
     - POINTS
+
+# OUTPUT
+    - grid stored in a geopackage
+        with post count, and user count for both PPGIS and Social media, and userday count from Social media data
 """
 
 import geopandas as gpd
@@ -46,10 +50,12 @@ if __name__ == "__main__":
 
     # Input layers:
 
-    # YKR grid polygons:
-    grid_fp = r"D:\ViherSOME\Data\YKR_grid\YKR_250m_Helsinki.shp"
-    grid = gpd.read_file(grid_fp)
-    polygon_id = "ID"
+    #  polygons:
+    poly_fp = r"D:/ViherSOME/Data/VISTRA/VISTRA_vihersormet_epsg3047_fixed_geom.shp"
+    poly = gpd.read_file(poly_fp)
+    poly_id = "id" # 595 unique values in the green finger layer
+
+    layername = "vistra_scaled"
 
     datadir = r"P:\h510\some\data\finland\vihersome_temp"
 
@@ -85,16 +91,29 @@ if __name__ == "__main__":
             # continue only with user id column and timestamp
             df = df[[usercolumns.get(layer), "geometry"]]
 
-        # Join point info to intersecting grid; left join which returns all combinations
-        join = join_points_to_grid(df, grid)
-        grid = count_per_grid(join, grid, value_column = usercolumns.get(layer), group_column = polygon_id)
+        # Join point info to intersecting polygon; left join which returns all combinations
+        join = join_points_to_grid(df, poly)
+        poly = count_per_grid(join, poly, value_column = usercolumns.get(layer), group_column = poly_id)
 
-        grid.rename(columns = {usercolumns.get(layer): layer[:9] + "_users"}, inplace=True)
+        poly.rename(columns = {usercolumns.get(layer): layer[:9] + "_users"}, inplace=True)
 
         if type == "socialmedia":
             #Count also userdays per grid
-            grid = count_per_grid(join, grid, value_column="userday", group_column=polygon_id)
-            grid.rename(columns={"userday": layer[:9] + "_userdays"}, inplace=True)
+            poly = count_per_grid(join, poly, value_column="userday", group_column=poly_id)
+            poly.rename(columns={"userday": layer[:9] + "_userdays"}, inplace=True)
+
+
+    # calculate ration of points / polygon area
+    poly["area"] = poly.area
+
+    poly[['PPGIS2050_users',
+       'PPGISpark_users', 'insta_hel_users', 'insta_hel_userdays',
+       'flick_hel_users', 'flick_hel_userdays', 'twitt_hel_users',
+       'twitt_hel_userdays']] = poly[['PPGIS2050_users',
+       'PPGISpark_users', 'insta_hel_users', 'insta_hel_userdays',
+       'flick_hel_users', 'flick_hel_userdays', 'twitt_hel_users',
+       'twitt_hel_userdays']].div(poly.area, axis = 0)
 
     #save output to file
-    grid.to_file(os.path.join(datadir, "urbangreens_grid.gpkg"), layer = "grid", driver="GPKG")
+    poly.drop(columns=["fid"], inplace=True) # does not work with the fid column?
+    poly.to_file(os.path.join(datadir, "urbangreens_grid.gpkg"), layer = layername, driver="GPKG")
