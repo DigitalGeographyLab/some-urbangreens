@@ -33,7 +33,7 @@ def normalize_column(df, column, tot_column):
 
 
 #Input data
-time = "HOUR"
+time = "ISODOW"#"HOUR"
 datadir = r"P:\h510\some\data\finland\vihersome_temp"
 filename = "strava_%s.csv" % time
 strava = pd.read_csv(os.path.join(datadir, filename))
@@ -49,7 +49,7 @@ plt.style.use('seaborn-whitegrid')
 plt.rc('legend', fontsize=14)  # legend fontsize
 
 #Plot
-ax = plot_temporal(df=strava, columns=["all_norm","commute_norm", "leisure_norm"], time = "hour")
+ax = plot_temporal(df=strava, columns=["all_norm","commute_norm", "leisure_norm"], time = "day of week")
 
 #FINALIZE FIGURE:
 plt.gca().get_lines()[0].set_color('0')
@@ -61,7 +61,7 @@ ax.legend(["all activities", "commute", "leisure"])
 #plt.yticks(np.arange(0.00, 0.20, step=0.02))
 
 #fix y ticks to match the strava plot
-plt.yticks(np.arange(0.00, 0.12, step=0.02))
+plt.yticks(np.arange(0.00, 0.20, step=0.02)) #0.12 max for hourly patterns!
 
 # tick font
 plt.tick_params(axis='both', which='major', labelsize=12)

@@ -81,7 +81,7 @@ def plot_counts(counts, time_unit, column="users", style='o-k'):
 if __name__ == "__main__":
 
     # Settings
-    time = "hour"  #"month" #"week" #"hour" #"week" #"dayofweek"
+    time = "dayofweek"  #"month" #"week" #"hour" #"week" #"dayofweek"
     value = "users"
 
     # input data
@@ -137,11 +137,13 @@ if __name__ == "__main__":
     plt.legend(list(labels.values()))
 
     # axes
-    plt.yticks(np.arange(0.00, 0.12, step=0.02))
+    plt.yticks(np.arange(0.00, 0.20, step=0.02)) # max 0.12 for hourly pattern!
     ax.set_xticklabels(normalized_counts.index + 1)
 
     # tick font
     plt.tick_params(axis='both', which='major', labelsize=12)
+
+    #ax.set_xlabel("day of week", fontsize=16)
 
     # save
     plt.savefig(r"fig\socialmedia_%s.png" % time)
