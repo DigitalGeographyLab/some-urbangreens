@@ -5,15 +5,20 @@ Scripts and documentation related to the analysis of urban green area use.
 
 1. [**Green space polygons**](vihersome-green-areas.md)
 2. **Point data pre-processing**
-    * [PPGIS data](preprocess_ppgis.py)
-    * [Social media data](preprocess_socialmedia.py)
+    * [Preprocess PPGIS data](preprocess_ppgis.py)
+    * [get data from postGIS](get_postgis_data.py)
+    * [Preprocess Social media data](preprocess_socialmedia.py)
 3. **Hotspot comparison**
-    * [join points to grid](data_to_grid.py)
+    * [join points to grid](data_to_grid.py) 
+    * [join data to green finger polygons](data_to_greenfingers.py)
     * [calculate jaccard index](calculate_jaccard_quantiles.py)
 4. **Plotting temporal trends**
+    * [social media](plot_temporal_social_media.py) 
+    * [strava](plot_temporal_strava.py)
+    * [mobile phone data](plot_temporal_mobilephone.py)
 5. **Content analysis of social media data**
-    * **Venn-diagrams**
-    * **Treemap**
+    * [Venn-diagrams](plot_venndiagram.py)
+    * [treemap](plot_treemap.py)
 6. **languages**
 
 
