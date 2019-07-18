@@ -67,16 +67,16 @@ print(preds[['langs', 'probs', args['preds']]].head(20))
 
 # Setting the languages to remove duplicate identifications
 print('[INFO] - Summarizing language info...')
-preds['langs'] = preds['langs'].apply(lambda x: set(x) if  x != None else None)
+preds['langs'] = preds['langs'].apply(lambda x: set(x) if x is not None else None)
 
 # Extract english language posts and filter
 print('[INFO] - Extracting english language posts...')
 en_preds = preds.loc[preds['langs'] == {'en'}]
-print("len of english posts:",len(en_preds))
+print("len of english posts:", len(en_preds))
 
 # Extract finnish language posts and filter
 fi_preds = preds.loc[preds['langs'] == {'fi'}]
-print("len of Finnish posts:",len(fi_preds))
+print("len of Finnish posts:", len(fi_preds))
 
 print('[INFO] - Writing results to file...')
 
