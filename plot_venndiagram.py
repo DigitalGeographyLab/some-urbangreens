@@ -74,16 +74,29 @@ for layername, fp in layers.items():
         df.replace({np.nan:0}, inplace = True)
         df.rename(columns=renamings, inplace=True)
 
+    print(layername, "\n")
     print("df original length:", len(df))
 
-    """
+
     # DATA QUALITY CHECK 
-    v = plotvenn3(df, 'NotRelevant', 'NotAvailable', 'GreenArea')
+    v = plotvenn3(df, 'NotRelevant', 'NotAvailable', "Green area photos")
     
     v.get_patch_by_id('100').set_color('lightgray')
     v.get_patch_by_id('010').set_color('gray')
     v.get_patch_by_id('001').set_color("green")
-    """
+
+    #SET FONTSIZE FOR LABELS
+    for text in v.set_labels:
+        text.set_fontsize(24)
+
+    #Subset label size
+    for text in v.subset_labels:
+        if text != None:
+            text.set_fontsize(20)
+
+    plt.title(layername + ", n=" + str(len(df)), fontsize=40)
+    plt.savefig(r"fig\%s_venn_data_quality.svg" % layername, format="svg")
+    plt.savefig(r"fig\%s_venn_data_quality.png" % layername, format="png")
 
     # REMOVE NOT RELEVANT AND UNAVAILABLE DATA
     df = remove_irrelevant(df)
