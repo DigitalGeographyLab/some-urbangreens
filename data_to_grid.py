@@ -1,10 +1,14 @@
 
 """
-Join user-generated data sets to grid (count of users, count of userdays for social media data)
+Join user-generated data sets (PPGIS and Social media) to statistical grid 
+including count of users (and count of userdays for social media data).
 
-# INPUT
-    - GRID
+# INPUT DATA:
+    - GRID (250 m x 250 m)
     - POINTS
+    
+# OUTPUT:
+    - Grid geometry and user statistics from different point layers stored as one layer in a geopackage
 """
 
 import geopandas as gpd
@@ -15,7 +19,7 @@ import os
 def create_user_days(points):
     """ Generates a combination of day + month + user as a series"""
 
-    # CONCATENATE USER+ DAY + MONTH
+    # CONCATENATE USER + DAY + MONTH
     points["time_local"] = pd.to_datetime(points["time_local"])
     points_with_userday = points.apply(lambda x: str(x["time_local"].year) + str(x["time_local"].day) + str(x["time_local"].month) + "_" + str(x["userid"]), axis=1)
 
