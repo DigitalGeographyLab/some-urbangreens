@@ -1,6 +1,6 @@
 """
-This script reads in original social media data from PostGIS database, and stores relevant data to
-geopackage:
+This script reads in original social media data from PostGIS database on a server, and stores relevant data to
+geopackage locally. 
 
 # Input point layers collected from social media API's for the Helsinki Region
 - Instagram
@@ -13,8 +13,6 @@ geopackage:
 RUN:
 one input layer at a time.. It takes a while for Instagram due to big size of input database.
 
-The point of this script is to fetch data from the original database, so that we can continue working with a smaller
-data set stored in a local geodatabase.
 
 """
 import psycopg2
@@ -46,7 +44,10 @@ if __name__ == "__main__":
 
     outfolder = r"P:\h510\some\data\finland\vihersome_temp"
 
+    # SET DATA SOURCE HERE:
     table = "twitter_in_hki" #"flickr_data_hki" #"instagram_data_helsinkiregion"
+    
+    # SET TIME RANGE HERE:
     timerange = "'2017-01-01' and '2017-12-31'"#"'2015-01-01' and '2015-12-31'"
 
     # CREATE QUERY FOR POSTS IN HELSINKI (the database also contains a polygon of Helsinki)
@@ -69,7 +70,7 @@ if __name__ == "__main__":
     db, user, password = ask_database_details()
 
     #use database-functions for fetching the query
-    conn = get_connection(db = db, user = user, host= 'localhost', port = "3333", password = password)
+    conn = get_connection(db=db, user=user, host='localhost', port='3333', password=password)
 
     # fetch data to geodataframe
     print("Fetching data from table", table, "...")
