@@ -13,26 +13,26 @@ Additional details and processing scripts:
 1. [**Green space polygons**](vihersome-green-areas.md)
 2. **Point data pre-processing**
     * [Preprocess PPGIS data](scripts/preprocess_ppgis.py)
-    * [get data from postGIS](scripts/get_postgis_data.py)
+    * [Get data from postGIS](scripts/get_postgis_data.py)
     * [Preprocess Social media data](scripts/preprocess_socialmedia.py)
 3. **Hotspot comparison**
-    * [join points to grid](scripts/data_to_grid.py) 
-    * [join data to green finger polygons](scripts/data_to_greenfingers.py)
-    * [calculate jaccard index](scripts/calculate_jaccard_quantiles.py)
+    * [Join points to grid](scripts/data_to_grid.py) 
+    * [Join data to green finger polygons](scripts/data_to_greenfingers.py)
+    * [Calculate jaccard index](scripts/calculate_jaccard_quantiles.py)
 4. **Plotting temporal trends**
-    * [social media](scripts/plot_temporal_social_media.py) 
-    * [strava](scripts/plot_temporal_strava.py)
-    * [mobile phone data](scripts/plot_temporal_mobilephone.py)
+    * [Social media](scripts/plot_temporal_social_media.py) 
+    * [Strava](scripts/plot_temporal_strava.py)
+    * [Mobile phone data](scripts/plot_temporal_mobilephone.py)
 5. **Content analysis of social media data**
-    * [Venn-diagrams](scripts/plot_venndiagram.py)
-    * [treemap](scripts/plot_treemap.py)
-6. **languages**
+    * [Plot Venn-diagrams](scripts/plot_venndiagram.py)
+    * [Treemap](scripts/plot_treemap.py)
+6. **Languages**
     * For language detection using FastText, see [Hiippala et al. 2019](https://doi.org/10.1093/llc/fqy049)
-    * [summarize language info for green areas](scripts/summarize_languages.py)
+    * [Summarize language info for green areas](scripts/summarize_languages.py)
 
 #### Input data about green area use / values
 
-*Input data sets covering the city of Helsinki. Number of records and users before any kind of filtering or further selection*
+*Input data sets covering the city of Helsinki. Number of records and users before any kind of filtering or further selection.*
 
 
 |    Name                 |    Type                  |    Source                                                                   |    Date range                    |    Records, whole city    |    Users, whole city    |
