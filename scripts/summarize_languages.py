@@ -130,7 +130,7 @@ toplangs_helsinki = userlangs.language.value_counts()
 toplangs_helsinki.to_csv(r"lang_results\Instagram_languages_usercounts_helsinki.csv")
 
 # plot summary
-plot_top_langs(toplangs_helsinki, n = 10, title = "Helsinki")
+plot_top_langs(toplangs_helsinki, n=10, title="Helsinki")
 
 #---------------------------
 # Languages in parks
@@ -146,20 +146,20 @@ if points.crs != poly.crs:
 greenpoints = gpd.sjoin(points, poly, how='inner', op="intersects")
 
 # Make sure there are no duplicates
-greenpoints.drop_duplicates(subset="photoid", inplace = True)
+greenpoints.drop_duplicates(subset="photoid", inplace=True)
 
 # add users lang info
-greenpoints = greenpoints.merge(userlangs, left_on = "userid", right_index = True)
+greenpoints = greenpoints.merge(userlangs, left_on="userid", right_index=True)
 
 # summarize users per language
-greenusers = greenpoints.drop_duplicates(subset = "userid")
+greenusers = greenpoints.drop_duplicates(subset="userid")
 toplangs_parks = greenusers.language.value_counts()
 
 #save summary for languages used by at least 10 users
 toplangs_parks[toplangs_parks > 10].to_csv(r"lang_results\Instagram_languages_usercounts_greens_%s.csv" % file_id)
 
 # plot summary
-plot_top_langs(toplangs_parks, n = 10, title = "Greens %s" % file_id)
+plot_top_langs(toplangs_parks, n=10, title = "Greens %s" % file_id)
 
 # list languages with more than 10 users
 lanlist = toplangs_parks[toplangs_parks > 10].index
@@ -174,7 +174,7 @@ print("ignored languages with less than 10 users")
 #------------------------
 
 # group data by polygon id
-grouped = greenpoints.groupby(by = poly_id)
+grouped = greenpoints.groupby(by=poly_id)
 
 # Data frame for storing the output
 parks = pd.DataFrame()
