@@ -1,7 +1,14 @@
-# some-urbangreens
+# Understanding the use of urban green spaces from user-generated geographic information
 
-### Understanding the use of urban green spaces from user-generated geographic information
-Scripts and documentation related to the analysis of urban green area use.
+This repository provides supplementary information for the article **Understanding the use of urban green spaces from user-generated geographic information**. 
+To cite the article, or any material in this repository, please use the following citation:
+
+Heikinheimo, V. V., Tenkanen, H., Bergroth, C., Järv, O., Hiippala, T., & Toivonen, T. (Accepted/In press). Understanding the use of urban green spaces from user-generated geographic information. Landscape and Urban Planning. 
+
+
+## Contents
+
+Additional details and processing scripts:
 
 1. [**Green space polygons**](vihersome-green-areas.md)
 2. **Point data pre-processing**
@@ -23,7 +30,6 @@ Scripts and documentation related to the analysis of urban green area use.
     * For language detection using FastText, see [Hiippala et al. 2019](https://doi.org/10.1093/llc/fqy049)
     * [summarize language info for green areas](scripts/summarize_languages.py)
 
-
 #### Input data about green area use / values
 
 *Input data sets covering the city of Helsinki. Number of records and users before any kind of filtering or further selection*
@@ -37,4 +43,4 @@ Scripts and documentation related to the analysis of urban green area use.
 |    PPGIS 2050           |    PPGIS Survey          |    City of Helsinki;    [Helsinki 2050 survey](https://hri.fi/data/en_GB/dataset/helsinki-2050-kyselyn-vastaukset)                                |    4/11/2013-9/12/2013           |    28250                  |    2588                 |
 |    PPGIS Park           |    PPGIS Survey          |    City of Helsinki; [questionnaire about Helsinki’s   national city park](https://hri.fi/data/en_GB/dataset/helsingin-kansallinen-kaupunkipuisto-kyselyn-vastaukset)    |         25/10/2017-17/12/2017    |    10939                  |    1385                 |
 |    Strava               |    Sports application    |    Strava METRO data set                                                    |    1/1/2015-31/12/2015           |    161946                 |    4044                 |
-|    Mobile phone data    |    Mobile phone data     |    Mobile phone operator                                                    |                                  |                           |                         |
+|    Mobile phone data    |    Mobile phone data     |    Mobile phone operator                                                    |    28/10/2017–9/1/2018           |                           |                         |
