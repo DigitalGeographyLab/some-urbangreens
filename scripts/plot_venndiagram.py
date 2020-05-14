@@ -42,23 +42,24 @@ def set_venn_colors(v, colorlist = ['#76a21e','#c6cf65', '#560d0d', "#f3ff93"]):
 
 
 def remove_irrelevant(df):
+    """Remove data labeled as not relevant or not available"""
     df = df[df["NotAvailable"] == 0]
     df = df[df["NotRelevant"] == 0]
 
     return df
+
 
 renamings = {"IndoorExperience": "Indoor",
             "GreenArea": "Green area photos",
             "Landscape": "Landscape photos",
             "Activity": "Activities"}
 
+# Filepaths
 insta_fp = r"P:\h510\some\data\finland\social_media\instagram\content_analysis\Helsinki\Instagram2015_Helsinki_greenareas_MAR2019_classifiedOK.csv"
 flickr_fp = r"P:\h510\some\data\finland\social_media\flickr\content_analysis\flickr_OSMGreen_Classified1843_2019.csv"
 
-
 layers = {"Instagram": insta_fp,
               "Flickr": flickr_fp}
-
 
 for layername, fp in layers.items():
 
@@ -76,7 +77,6 @@ for layername, fp in layers.items():
 
     print(layername, "\n")
     print("df original length:", len(df))
-
 
     # DATA QUALITY CHECK 
     v = plotvenn3(df, 'NotRelevant', 'NotAvailable', "Green area photos")

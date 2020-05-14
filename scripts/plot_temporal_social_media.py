@@ -12,10 +12,7 @@ import numpy as np
 import os
 
 def groupbytime(somedata, time):
-    """
-    Group input dataframe based on hour and calculate count of photos, users and photos per user per hour
-    # could try: df.groupby(df.index.to_period('T'))
-    """
+    """Group input dataframe based on hour and calculate count of photos, users and photos per user per hour"""
     # Group data based based on time unit
 
     if time == "hour":
@@ -37,7 +34,7 @@ def groupbytime(somedata, time):
 
 
 def getcounts(grouped_data):
-    """ """
+    """Get count of photos/users"""
 
     #Extract count of photos and users per hour into a dataframe
     counts = pd.DataFrame()
@@ -51,27 +48,16 @@ def getcounts(grouped_data):
     return counts
 
 
-def normalize_couts(counted_data, time):
-    """ """
-
-    #get counts for the whole data:
-    time_counts = getcounts(groupbytime(some, time))
-
-    # Normalize
-    normalized_counts = counted_data / time_counts
-
-    return normalized_counts[["users"]]
-
-
 def plot_counts(counts, time_unit, column="users", style='o-k'):
-    """
+    """ Plot photo count per time unit.
+
     :param counts: Pandas DataFrame
     :param time_unit: string used as x axis label
     :param column: column to plot
     :param style: string for linestyle
     :return: plot object
     """
-    # Plot photo count per hour
+    # Create plot
     ax = counts[column].plot(xticks=counts.index, style=style)
     ax.set_ylabel("share of all %s" % column, fontsize = 16)
     ax.set_xlabel(time_unit, fontsize = 16)
@@ -111,6 +97,7 @@ if __name__ == "__main__":
     # following: https://stackoverflow.com/questions/3899980/how-to-change-the-font-size-on-a-matplotlib-plot
 
     for layer, user_column in layers_usercols.items():
+
         # Read in layer from geopackage
         df = gpd.read_file(os.path.join(datadir, r'urbangreens.gpkg'), layer=layer)
 

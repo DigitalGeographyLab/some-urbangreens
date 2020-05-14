@@ -24,6 +24,7 @@ This script
 import geopandas as gpd
 import os
 
+
 def spatial_subset(points, polygon):
     "creates a new geodatabase containing points intersecting the polygon. Output crs from polygon."
 
@@ -33,6 +34,7 @@ def spatial_subset(points, polygon):
     point_subset = gpd.tools.sjoin(points, polygon, how='inner', op="intersects")
 
     return point_subset
+
 
 # DEFINE DATA DIRECTORIES HERE:
 datadir = r"P:\h510\some\data\finland\PPGIS"
@@ -54,7 +56,6 @@ greenarea.crs =  {'init' :'epsg:3879'} # the wfs returns a false crs!
 filenames = {"PPGISpark": r"kansallinen_kaupunkipuisto-kysely_updated\avoin_data_final_id\kansallinen_kaupunkipuisto_point.shp",
         "PPGIS2050":r"Helsinki_yleiskaava\Helsinki_2050_KML\hki_2050_pisteet_SHP.shp"}
 
-
 for name, filepath in filenames.items():
 
     # Read in layer
@@ -70,7 +71,6 @@ for name, filepath in filenames.items():
 
     print("\t", len(file), "after bbox")
 
-
     if name == "PPGIS2050":
         # Select rows for PPGIS 2050 survey
         helsinkipoints = spatial_subset(file, area)
@@ -79,7 +79,6 @@ for name, filepath in filenames.items():
         file = file[(file["valuename"] == 'taalla-on-tallaisenaan-ainutlaatuista-kaupunkiluontoa') |
                     (file["valuename"] == 'virkistyksellisesti-tarkea-mutta-saisi-olla-laadultaan-parempi')]
         print("\t", len(file), "all data after selecting attributes")
-
 
     # Posts in Helsinki
     helsinkipoints = spatial_subset(file, area)

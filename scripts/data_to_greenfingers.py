@@ -95,24 +95,23 @@ if __name__ == "__main__":
         join = join_points_to_grid(df, poly)
         poly = count_per_grid(join, poly, value_column = usercolumns.get(layer), group_column = poly_id)
 
-        poly.rename(columns = {usercolumns.get(layer): layer[:9] + "_users"}, inplace=True)
+        poly.rename(columns={usercolumns.get(layer): layer[:9] + "_users"}, inplace=True)
 
         if type == "socialmedia":
             #Count also userdays per grid
             poly = count_per_grid(join, poly, value_column="userday", group_column=poly_id)
             poly.rename(columns={"userday": layer[:9] + "_userdays"}, inplace=True)
 
-
     # calculate ration of points / polygon area
     poly["area"] = poly.area
 
-    poly[['PPGIS2050_users',
-       'PPGISpark_users', 'insta_hel_users', 'insta_hel_userdays',
-       'flick_hel_users', 'flick_hel_userdays', 'twitt_hel_users',
-       'twitt_hel_userdays']] = poly[['PPGIS2050_users',
-       'PPGISpark_users', 'insta_hel_users', 'insta_hel_userdays',
-       'flick_hel_users', 'flick_hel_userdays', 'twitt_hel_users',
-       'twitt_hel_userdays']].div(poly.area, axis = 0)
+    poly[['PPGIS2050_users', 'PPGISpark_users',
+          'insta_hel_users', 'insta_hel_userdays',
+          'flick_hel_users', 'flick_hel_userdays', 'twitt_hel_users',
+          'twitt_hel_userdays']] = poly[['PPGIS2050_users', 'PPGISpark_users',
+                                         'insta_hel_users', 'insta_hel_userdays',
+                                         'flick_hel_users', 'flick_hel_userdays', 'twitt_hel_users',
+                                         'twitt_hel_userdays']].div(poly.area, axis = 0)
 
     #save output to file
     poly.drop(columns=["fid"], inplace=True) # does not work with the fid column?

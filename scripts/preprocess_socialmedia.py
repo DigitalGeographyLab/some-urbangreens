@@ -24,6 +24,7 @@ Author: Vuokko H. (4.7.2019)
 import geopandas as gpd
 import os
 
+
 def spatial_subset(points, polygon):
     "Returns points intersecting the polygon. Output crs: epsg 4326."
 
@@ -53,7 +54,7 @@ for layer in layers:
     df.crs = {'init': 'epsg:4326'}
 
     if layer == "twitt_helsinki_2017":
-        df.drop_duplicates(subset = "id", inplace = True)
+        df.drop_duplicates(subset="id", inplace=True)
     else:
         df.drop_duplicates(subset="photoid", inplace=True)
 
@@ -71,5 +72,5 @@ for layer in layers:
 
     # Save output layer to geopackage
     print("saving green area posts from ", layer)
-    greenareapoints.to_file(os.path.join(datadir, "urbangreens.gpkg"), layer = layer + "_greens", driver="GPKG")
+    greenareapoints.to_file(os.path.join(datadir, "urbangreens.gpkg"), layer=layer + "_greens", driver="GPKG")
 

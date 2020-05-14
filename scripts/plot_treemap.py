@@ -1,7 +1,7 @@
 """
 Plot treemap visualization of classified social media content
 
-TODO: clean up messy code..
+TODO: clean up messy code.. ;)
 
 """
 
@@ -15,6 +15,7 @@ import pandas as pd
 
 
 def plot_treemap(df, value_col, label_col, alpha = .8, figsize=(10, 20)):
+    """Create treemap plot object"""
     plt.figure(figsize=figsize)
 
     cmap = matplotlib.cm.Greens
@@ -58,7 +59,6 @@ for layername, fp in layers.items():
 
     # FISHING INTO WATER ACTIVITIES
     df['WaterSports'] = df.apply(lambda x: 1 if x["Comment_"] in ["fishing"] else x['WaterSports'], axis=1)
-
 
     # OTHER SPORTS, grouped
     #File1["other sports"] = File1["Comment_"].apply(lambda x: 1 if x in list2 else 0)

@@ -60,7 +60,7 @@ if __name__ == "__main__":
         timerange = "'2015-01-01' and '2015-12-31'"
         year = "2015"
 
-    query= """
+    query = """
         SELECT {1} 
         FROM {0}, helsinki_wgs84_poly
         WHERE ST_intersects({0}.geom, helsinki_wgs84_poly.geom) and TIME_LOCAL BETWEEN {2};

@@ -39,9 +39,9 @@ filename = "strava_%s.csv" % time
 strava = pd.read_csv(os.path.join(datadir, filename))
 
 #normalize columns
-strava["all_norm"] = normalize_column(strava, "sum_tot_activity","sum_tot_activity")
-strava["leisure_norm"] = normalize_column(strava, "sum_leisure_activity","sum_tot_activity")
-strava["commute_norm"] = normalize_column(strava, "sum_commute","sum_tot_activity")
+strava["all_norm"] = normalize_column(strava, "sum_tot_activity", "sum_tot_activity")
+strava["leisure_norm"] = normalize_column(strava, "sum_leisure_activity", "sum_tot_activity")
+strava["commute_norm"] = normalize_column(strava, "sum_commute", "sum_tot_activity")
 
 # set font sizes
 plt.style.use('seaborn-whitegrid')
@@ -49,7 +49,7 @@ plt.style.use('seaborn-whitegrid')
 plt.rc('legend', fontsize=14)  # legend fontsize
 
 #Plot
-ax = plot_temporal(df=strava, columns=["all_norm","commute_norm", "leisure_norm"], time = "day of week")
+ax = plot_temporal(df=strava, columns=["all_norm", "commute_norm", "leisure_norm"], time="day of week")
 
 #FINALIZE FIGURE:
 plt.gca().get_lines()[0].set_color('0')

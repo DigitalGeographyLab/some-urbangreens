@@ -2,7 +2,8 @@
 Script for calculating the Jaccard index between the top 10 % spatial
 hotspots of user-generated data sets in urban green areas.
 
-THIS VERSION OF THE SCRIPT GIVES A RANK NUMBER TO IDENTICAL VALUES --> a bit different categories compared to dropping duplicate values
+THIS VERSION OF THE SCRIPT GIVES A RANK NUMBER TO IDENTICAL VALUES
+--> a bit different categories compared to dropping duplicate values
 
 Jaccard index: intersection divided by the union of two sets
 
@@ -60,14 +61,6 @@ print(data.columns.values)
 #data.replace(to_replace=0, value=np.nan, inplace=True)
 
 #select columns for comparison:
-"""
-data_values = data[['PPGIS2050_users', 'PPGISpark_users', 'insta_hel_users',
-       'insta_hel_userdays', 'flick_hel_users', 'flick_hel_userdays',
-       'twitt_hel_users', 'twitt_hel_userdays', 'ZROP H0',
-       'ZROP H13', 'ZROP H14', 'ZROP H15', 'ZROP H16', 'ZROP H17',
-       'ZROP H18', 'ZROP H20', 'ZROP H22']]
-"""
-
 data_values = data[['PPGIS2050_users', 'PPGISpark_users', 'insta_hel_users',
         'flick_hel_users', 'twitt_hel_users', 'ZROP H16', 's_athlete__max']]
 

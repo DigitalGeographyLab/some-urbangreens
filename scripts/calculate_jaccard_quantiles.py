@@ -1,5 +1,4 @@
-"""
-Script for calculating the Jaccard index between the top 10 % spatial
+""" Script for calculating the Jaccard index between the top 10 % spatial
 hotspots of user-generated data sets in urban green areas.
 
 Jaccard index: intersection divided by the union of two sets
@@ -31,8 +30,7 @@ import os
 
 group_column = "YKR_ID" #"id" #
 
-
-# how many quantiles
+# Set the number of quantiles
 quantiles = 5
 layer = "greengrid"
 version= "drop_duplicates_no_zero"
@@ -50,7 +48,6 @@ file1 = open(meta_fp,"w")
 file1.close()
 
 # geodata file name
-
 quantilelayername = r"greengrid_q%s_%s_%s" % (str(quantiles), layer , version )
 
 #check input data
@@ -61,24 +58,18 @@ print(data.columns.values)
 #data.replace(to_replace=0, value=np.nan, inplace=True)
 
 #select columns for comparison:
-"""
-data_values = data[['PPGIS2050_users', 'PPGISpark_users', 'insta_hel_users',
-       'insta_hel_userdays', 'flick_hel_users', 'flick_hel_userdays',
-       'twitt_hel_users', 'twitt_hel_userdays', 'ZROP H0',
-       'ZROP H13', 'ZROP H14', 'ZROP H15', 'ZROP H16', 'ZROP H17',
-       'ZROP H18', 'ZROP H20', 'ZROP H22']]
-"""
-
 data_values = data[['PPGIS2050_users', 'PPGISpark_users', 'insta_hel_users',
         'flick_hel_users', 'twitt_hel_users', 'ZROP H16', 's_athlete__max']]
 
 # Rename columns for output
-data_values.rename(columns = {'PPGIS2050_users':'PPGIS2050', 'PPGISpark_users':'PPGISPark', 'insta_hel_users':'Instagram',
-        'flick_hel_users':'Flickr', 'twitt_hel_users':'Twitter', 'ZROP H16':'MobilePhone4PM', 's_athlete__max':'Strava'}, inplace = True)
-
-#data_values = data[['PPGIS2050_users', 'PPGISpark_users', 'insta_hel_users',
- #       'flick_hel_users', 'twitt_hel_users']]
-
+data_values.rename(columns = {'PPGIS2050_users':'PPGIS2050',
+                              'PPGISpark_users':'PPGISPark',
+                              'insta_hel_users':'Instagram',
+                              'flick_hel_users':'Flickr',
+                              'twitt_hel_users':'Twitter',
+                              'ZROP H16':'MobilePhone4PM',
+                              's_athlete__max':'Strava'},
+                   inplace = True)
 
 #------------------------------
 # Get top 10 % of each column
@@ -120,6 +111,7 @@ top = top.notnull().astype('int')
 # Save spatial layer with binary labels for top quantile
 top_geo = data[[group_column, "geometry"]].merge(top, left_on = group_column, right_index = True)
 top_geo.to_file(os.path.join(datadir, r'urbangreens_grid.gpkg'), layer = quantilelayername, driver="GPKG")
+
 #------------------------------
 # CALCULATE JACCARD
 #-------------------------------

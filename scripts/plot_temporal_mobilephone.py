@@ -1,3 +1,5 @@
+""" Script for plotting the temporal graphs for mobile phone data"""
+
 import geopandas as gpd
 import os
 import matplotlib.pyplot as plt
@@ -6,6 +8,7 @@ import numpy as np
 
 
 def calculate_share(df, timecols):
+    """Calculate hourly share of activity"""
     hourly = pd.DataFrame(df[timecols].sum(), columns=["sum"])
     hourly["share"] = hourly["sum"] / hourly["sum"].sum()
 
@@ -13,12 +16,14 @@ def calculate_share(df, timecols):
 
 
 def plot_temporal_share(df, style = 'o-k'):
+    """Plot temporal graph"""
 
     ax = df["share"].plot(style=style)
     plt.xticks(np.arange(0, 24, 1.0))
 
     return ax
 
+# Set layer name and time interval
 layer = "greengrid"
 time = "hour"
 
@@ -33,13 +38,14 @@ timecols = ['ZROP H1', 'ZROP H2', 'ZROP H3',
        'ZROP H15', 'ZROP H16', 'ZROP H17', 'ZROP H18', 'ZROP H19',
        'ZROP H20', 'ZROP H21', 'ZROP H22', 'ZROP H23', 'ZROP H0']
 
+# Initiate plot
 plt.style.use('seaborn-whitegrid')
 fig, ax = plt.subplots()
 
 # set font sizes
 plt.rc('legend', fontsize=14)  # legend fontsize
 
-#ticks
+# ticks
 plt.yticks(np.arange(0.00, 0.12, step=0.02))
 plt.tick_params(axis='both', which='major', labelsize=12)
 
@@ -47,10 +53,9 @@ plt.tick_params(axis='both', which='major', labelsize=12)
 share = calculate_share(data, timecols)
 plot_temporal_share(share, style = 'o-k')
 
-#KESKUSPUISTO ONLY
+# KESKUSPUISTO ONLY
 hourly_kpuisto =  calculate_share(data[data["YKR_ID"]==5902057], timecols)
 plot_temporal_share(hourly_kpuisto, style ='s-g')
-
 
 # line styles
 plt.gca().get_lines()[0].set_color("0")  # black

@@ -39,16 +39,16 @@ grid.drop(columns= ["x", 'GRIDCODE', 'x', 'y', 'xyind', 'Shape_Leng', 'Shape_Are
 greengrid.drop(columns= ['join_fid', 'join_id', 'join_kohde', 'distance'], inplace = True)
 mobile.drop(columns= ["Unnamed: 0", "geometry"], inplace = True)
 strava.drop(columns = ['GRIDCODE', 'x', 'y', 'xyind', 'Shape_Leng', 'Shape_Area',
-       'join_fid', 'join_id', 'join_kohde', 'distance', 'geometry'], inplace = True)
+                       'join_fid', 'join_id', 'join_kohde', 'distance', 'geometry'], inplace = True)
 
 #merge social media, PPGIS to greengrid
-greengrid = greengrid.merge( grid, how = "inner",on = "ID", right_index = False)
+greengrid = greengrid.merge(grid, how="inner", on="ID", right_index=False)
 
 # merge mobile phone data to grid:
-greengrid = greengrid.merge(mobile, left_on = "ID", right_on = "YKR_ID")
+greengrid = greengrid.merge(mobile, left_on="ID", right_on="YKR_ID")
 
 # merge strava data to grid
-greengrid = greengrid.merge(strava, on = "ID")
+greengrid = greengrid.merge(strava, on="ID")
 
 # save output to file
 print("Saving output to geopackage")

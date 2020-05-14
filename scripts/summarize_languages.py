@@ -75,7 +75,7 @@ def get_users_language(df, usercol ="userid"):
     return resultdf
 
 
-def plot_top_langs(values, n = 10, title = "x"):
+def plot_top_langs(values, n=10, title="x"):
     """ Plot users per language in a bar graph"""
     ax = values.head(n).sort_values(ascending=True).plot.barh(color="black")
     plt.title(title, fontsize=24)
@@ -92,11 +92,11 @@ def plot_top_langs(values, n = 10, title = "x"):
 
 # Social media points, takes a while to read..
 points = pd.read_pickle(r"P:\h510\some\data\finland\social_media\instagram\languages\instagram_Helsinki_fasttext_parsed_geom.pkl")
-points = gpd.GeoDataFrame(points, geometry = "geom")
+points = gpd.GeoDataFrame(points, geometry="geom")
 points.crs = {'init': 'epsg:4326'}
 
 # Make sure there are no duplicates
-points.drop_duplicates(subset="photoid", inplace = True)
+points.drop_duplicates(subset="photoid", inplace=True)
 
 # polygons:
 poly_fp = r"P:\h510\some\data\finland\gis_layers\VISTRA\VISTRA_vihersormet_epsg3047_fixed_geom.shp"
@@ -159,7 +159,7 @@ toplangs_parks = greenusers.language.value_counts()
 toplangs_parks[toplangs_parks > 10].to_csv(r"lang_results\Instagram_languages_usercounts_greens_%s.csv" % file_id)
 
 # plot summary
-plot_top_langs(toplangs_parks, n=10, title = "Greens %s" % file_id)
+plot_top_langs(toplangs_parks, n=10, title="Greens %s" % file_id)
 
 # list languages with more than 10 users
 lanlist = toplangs_parks[toplangs_parks > 10].index
