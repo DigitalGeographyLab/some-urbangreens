@@ -27,6 +27,8 @@ Heikinheimo, V. V., Tenkanen, H., Bergroth, C., Järv, O., Hiippala, T., & Toivo
     * For language detection using FastText, see [Hiippala et al. 2019](https://doi.org/10.1093/llc/fqy049)
     * [Summarize language info for green areas](scripts/summarize_languages.py)
 
+*Please note that the scripts might contain custom input and output paths outside this repository.*
+ 
 ## Data
 
 Details of input data. 
@@ -52,11 +54,9 @@ Details of input data.
 
 We acquired the extent of public green areas in Helsinki from the register of public areas in the city of Helsinki.
 
-**Description of the data in Helsinki Region Infoshare:**
+[Description of the data in Helsinki Region Infoshare](https://hri.fi/data/fi/dataset/helsingin-kaupungin-yleisten-alueiden-rekisteri).
 
-https://hri.fi/data/fi/dataset/helsingin-kaupungin-yleisten-alueiden-rekisteri
-
-**WFS query used for retrieving the data:**
+WFS query used for retrieving the data:
 ```
 https://kartta.hel.fi/ws/geoserver/avoindata/wfs?request=GetFeature&service=WFS&version=1.1.0&typeName=avoindata:YLRE_Viheralue_alue&outputFormat=kml
 ```
