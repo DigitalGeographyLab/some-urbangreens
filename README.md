@@ -1,11 +1,16 @@
 # Understanding the use of urban green spaces from user-generated geographic information
 
 This repository provides supplementary information for the article **Understanding the use of urban green spaces from user-generated geographic information**. 
-To cite the article, or any material in this repository, please use the following citation:
+To cite the article, or any material in this repository, please use the following citation. 
 
+## Citation
+
+**APA:** 
 
 Heikinheimo, V., Tenkanen, H., Bergroth, C., Järv, O., Hiippala, T., & Toivonen, T. (2020). Understanding the use of urban green spaces from user-generated geographic information. Landscape and Urban Planning, 201, 103845, https://doi.org/10.1016/j.landurbplan.2020.103845.
 
+
+**BibTeX:**
 ```
 @article{HEIKINHEIMO2020103845,
 title = "Understanding the use of urban green spaces from user-generated geographic information",
