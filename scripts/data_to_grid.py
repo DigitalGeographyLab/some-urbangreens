@@ -27,7 +27,7 @@ def create_user_days(points):
 
 
 def join_points_to_grid(points, grid):
-    "joins attributes from points to intersecting polygons (left join)"
+    """joins attributes from points to intersecting polygons (left join)"""
 
     # re-project points to grid crs
     points = points.to_crs(grid.crs)
