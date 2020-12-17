@@ -21,6 +21,7 @@ def plotvenn3(df, var1, var2, var3):
             https://github.com/konstantint/matplotlib-venn
             http://matthiaseisen.com/pp/patterns/p0145/
     """
+    
     plt.figure(figsize=(10, 10))
     set1 = set(df[df[var1] == 1].index)
     set2 = set(df[df[var2] == 1].index)
@@ -35,6 +36,7 @@ def plotvenn3(df, var1, var2, var3):
 
 def set_venn_colors(v, colorlist = ['#76a21e','#c6cf65', '#560d0d', "#f3ff93"]):
     """set colors for venn diagram subsets"""
+    
     v.get_patch_by_id('100').set_color(colorlist[0])
     v.get_patch_by_id('110').set_color(colorlist[1])
     v.get_patch_by_id('111').set_color(colorlist[2])
@@ -43,6 +45,7 @@ def set_venn_colors(v, colorlist = ['#76a21e','#c6cf65', '#560d0d', "#f3ff93"]):
 
 def remove_irrelevant(df):
     """Remove data labeled as not relevant or not available"""
+    
     df = df[df["NotAvailable"] == 0]
     df = df[df["NotRelevant"] == 0]
 
@@ -65,14 +68,14 @@ for layername, fp in layers.items():
 
     if layername == "Instagram":
         df = pd.read_csv(fp)
-        df.replace({-1:1},inplace = True)
-        df.replace({np.nan:0}, inplace = True)
+        df.replace({-1:1},inplace=True)
+        df.replace({np.nan:0}, inplace=True)
         df.rename(columns=renamings, inplace=True)
 
     if layername == "Flickr":
         df = pd.read_csv(flickr_fp, sep=",")
-        df.replace({False:0, True:1},inplace = True)
-        df.replace({np.nan:0}, inplace = True)
+        df.replace({False:0, True:1},inplace=True)
+        df.replace({np.nan:0}, inplace=True)
         df.rename(columns=renamings, inplace=True)
 
     print(layername, "\n")
@@ -122,4 +125,4 @@ for layername, fp in layers.items():
 
     plt.title(layername + ", n=" + str(len(df[df["Green area photos"] == 1])), fontsize=40)
 
-    plt.savefig(r"fig\%s_venn.svg" % layername, format = "svg")
+    plt.savefig(r"fig\%s_venn.svg" % layername, format="svg")
